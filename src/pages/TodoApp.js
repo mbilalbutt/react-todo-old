@@ -158,16 +158,30 @@ class TodoApp extends React.Component {
       
       const todo = this.state.todo;
       if (todo && todo.text) {
+        var todoRef = store.collection("todos").doc(userId).collection("todoList").doc(todo.todoId);
+
+        // Set the "capital" field of the city 'DC'
+        todoRef.update({
+          title: text
+        })
+        .then(function() {
+          console.log("Document successfully updated!");
+        })
+        .catch(function(error) {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+        });
+
         // Edit
-        db.ref(`todos/${userId}/${todo.todoId}`)
-          .update({
-            text,
-            userId
-          })
-          .then(_ => {
-            this.setState({ text: "", todo: {}, editTodo: false });
-          })
-          .catch(error => console.log(error.message));
+        // db.ref(`todos/${userId}/${todo.todoId}`)
+        //   .update({
+        //     text,
+        //     userId
+        //   })
+        //   .then(_ => {
+        //     this.setState({ text: "", todo: {}, editTodo: false });
+        //   })
+        //   .catch(error => console.log(error.message));
       }
       else {
         // Add Todo
@@ -257,14 +271,20 @@ class TodoApp extends React.Component {
     }
   
     handleEdit = todoId => {
-      db.ref(`todos/${this.state.user.uid}/${todoId}`)
-        .once("value")
-        .then(snapshot => {
-          this.setState({
-            todo: snapshot.val(),
-            text: snapshot.val().text,
-            editTodo: true
-          });
+      // db.ref(`todos/${this.state.user.uid}/${todoId}`)
+      //   .once("value")
+      //   .then(snapshot => {
+      //     this.setState({
+      //       todo: snapshot.val(),
+      //       text: snapshot.val().text,
+      //       editTodo: true
+      //     });
+      //   });
+
+        this.setState({
+          todo: this.state.todos.filter(todo => todo.todoId == todoId)[0],
+          text: this.state.todos.filter(todo => todo.todoId == todoId)[0].text,
+          editTodo: true
         });
     };
   
@@ -334,7 +354,7 @@ class TodoApp extends React.Component {
                     topics={this.state.topics} 
                     handleDelete={this.handleDelete}
                     handleEdit={this.handleEdit}
-                    sGroup={false}
+                    isGroup={false}
                   />
               </div>
               <div className="card-footer">
