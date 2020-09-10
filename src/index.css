@@ -25,3 +25,7 @@ code {
   border-width: 1px 0 0;
 }
 
+.callout {
+  border: 1px solid #e9ecef;
+}
+

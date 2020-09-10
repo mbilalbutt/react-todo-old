@@ -8,11 +8,11 @@ function Header() {
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/app">MyTodo</Link>
                 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto">
+    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul className="navbar-nav ml-auto">
       </ul>
       <Link className="btn btn-success" to="/profile">Profile</Link>
       <button className="btn btn-warning ml-1" onClick={() => auth().signOut()}>

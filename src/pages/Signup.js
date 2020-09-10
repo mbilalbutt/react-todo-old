@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { signup } from '../helpers/auth';
+import { store } from '../services/firebase';
 
 export default class SignUp extends Component {
 
@@ -25,7 +26,18 @@ export default class SignUp extends Component {
     event.preventDefault();
     this.setState({ error: '' });
     try {
-      await signup(this.state.email, this.state.password);
+      const response = await signup(this.state.email, this.state.password);
+
+      store.collection("users").doc(response.user.uid).set({
+        userId: response.user.uid,
+        email: response.user.email
+      })
+      .then(function(docRef) {
+        console.log("User added in Firestore", docRef);
+      })
+      .catch(function(error) {
+        console.error("Error adding document: ", error);
+      });
     } catch (error) {
       this.setState({ error: error.message });
     }
