@@ -10,7 +10,7 @@ class TodoList extends React.Component {
           <ul className="list-unstyled">
           {this.props.todos.map(todo => (
             <li key={todo.todoId} className="border rounded p-3 mt-2">
-              {todo.text}<span class="badge bg-warning text-dark ml-2">{topics.length>0 ? topics.filter(topic => topic.Id == todo.topicId)[0].title : ""}</span>
+              {todo.text}<span className="badge bg-warning text-dark ml-2">{topics.length>0 ? topics.filter(topic => topic.Id == todo.topicId)[0].title : ""}</span>
               <div className="float-right">
               {isGroup == false ? 
               <button href="" className="btn btn-sm btn-info p-1" onClick={() => handleEdit(todo.todoId)}>Edit</button> : ''

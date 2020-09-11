@@ -257,7 +257,15 @@ class TodoApp extends React.Component {
     }
   
     handleDelete = todoId => {
-      db.ref(`todos/${this.state.user.uid}/${todoId}`).remove();
+      const userId = this.state.user.uid;
+      store.collection("todos").doc(userId).collection("todoList").doc(todoId).delete()
+      .then(function() {
+        console.log("Topic successfully deleted!");
+      }).catch(function(error) {
+        console.error("Error removing document: ", error);
+      });
+
+      //db.ref(`todos/${this.state.user.uid}/${todoId}`).remove();
     };
 
     handleTopicDelete = topicId => {
