@@ -255,7 +255,7 @@ class TodoApp extends React.Component {
                 <div className="card">            
                   <div className="card-body">
                     <div className="card-title"><b>Group Todo List</b></div>
-                    {this.state.topics.map(topic => (
+                    {/* {this.state.topics.map(topic => (
                     <div key={topic.topicId} className="row mb-3">
                       <div className="col-md-12">
                         <div style={{backgroundColor: "#E3F0F8"}} className="border rounded p-2">
@@ -278,7 +278,7 @@ class TodoApp extends React.Component {
                         </div>         
                       </div>
                     </div>
-                    ))}
+                    ))} */}
                   </div>
                   <div className="card-footer">
                     {this.state.groupTodos.length} Item(s)
