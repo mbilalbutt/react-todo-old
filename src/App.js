@@ -13,6 +13,9 @@ import Login from './pages/Login';
 import { auth } from './services/firebase';
 import Profile from './pages/Profile';
 
+import modules from './modules';
+
+
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
   return (
     <Route
@@ -68,9 +71,17 @@ class App extends Component {
         <Switch>
           <PublicRoute exact path="/" authenticated={this.state.authenticated} component={Login}></PublicRoute>
           <PrivateRoute path="/app" authenticated={this.state.authenticated} component={TodoApp}></PrivateRoute>
-          <PrivateRoute path="/profile" authenticated={this.state.authenticated} component={Profile}></PrivateRoute>
+          
+          {modules.map(module => (
+              module.routeProps.path == '/profile' ?
+              <PrivateRoute path="/profile" authenticated={this.state.authenticated} component={Profile}></PrivateRoute> :
+              <PublicRoute path={module.routeProps.path} authenticated={this.state.authenticated} component={module.routeProps.component}></PublicRoute>
+              // <PublicRoute path="/login" authenticated={this.state.authenticated} component={Login}></PublicRoute>
+          ))}
+
+          {/* <PrivateRoute path="/profile" authenticated={this.state.authenticated} component={Profile}></PrivateRoute>
           <PublicRoute path="/signup" authenticated={this.state.authenticated} component={Signup}></PublicRoute>
-          <PublicRoute path="/login" authenticated={this.state.authenticated} component={Login}></PublicRoute>
+          <PublicRoute path="/login" authenticated={this.state.authenticated} component={Login}></PublicRoute> */}
         </Switch>
       </Router>
     );
